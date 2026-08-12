@@ -1,0 +1,513 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   FLEMDEK NIG. LIMITED — DESIGN TOKENS
+   --------------------------------------------------------------------------
+   Single source of truth for the visual system. Components must consume
+   these semantic tokens rather than raw hex values or ad-hoc font sizes.
+
+   Tailwind v4 generates utilities directly from the `@theme` block below:
+     --color-ink        -> text-ink / bg-ink / border-ink
+     --text-h2          -> text-h2 (with paired leading / tracking / weight)
+     --radius-lg        -> rounded-lg
+     --shadow-md        -> shadow-md
+     --container-page   -> max-w-page
+     --breakpoint-xs    -> xs:*
+   ========================================================================== */
+
+@theme {
+  /* ---------------------------------------------------------------------
+     COLOR — canvas & surfaces
+     The page sits on a light architectural canvas; content sits on white
+     surfaces that read as floating planes above it.
+     --------------------------------------------------------------------- */
+  --color-canvas: #f6f8fa;
+  --color-canvas-sunken: #eef2f6;
+  --color-surface: #ffffff;
+
+  /* ---------------------------------------------------------------------
+     COLOR — ink (text)
+     Contrast against surface (#fff) / canvas / canvas-sunken, verified by
+     computing WCAG 2.1 relative luminance for each pair:
+       ink         17.13 / 16.09 / 15.23   primary text, headlines
+       ink-muted    6.44 /  6.05 /  5.73   secondary body copy
+       ink-subtle   5.32 /  5.00 /  4.73   metadata, eyebrow labels
+     ink-subtle is the lightest text tone in the system and still clears
+     AA (4.5:1) on the sunken plane, its worst-case background.
+     --------------------------------------------------------------------- */
+  --color-ink: #0e1c2f;
+  --color-ink-strong: #08131f;
+  --color-ink-muted: #4e6076;
+  --color-ink-subtle: #5e6c83;
+  --color-ink-inverse: #ffffff;
+  /* 8.47:1 on --color-ink */
+  --color-ink-inverse-muted: #a9b8c8;
+
+  /* ---------------------------------------------------------------------
+     COLOR — lines
+     --------------------------------------------------------------------- */
+  --color-border: #e1e7ed;
+  --color-border-strong: #c8d2dc;
+  --color-border-inverse: #23384f;
+
+  /* ---------------------------------------------------------------------
+     COLOR — accent
+     A deep, technical corporate blue. Deliberately desaturated relative to
+     a "tech startup" blue: 8.86:1 on white, so it carries body-sized text
+     and small UI without falling back to near-black.
+     --------------------------------------------------------------------- */
+  --color-accent: #0f4c81;
+  --color-accent-hover: #0c3d68;
+  --color-accent-active: #092e4f;
+  --color-accent-soft: #eaf1f8;
+  --color-accent-border: #c9ddef;
+  --color-accent-contrast: #ffffff;
+
+  /* ---------------------------------------------------------------------
+     COLOR — state
+     --------------------------------------------------------------------- */
+  --color-success: #1e7a4d;
+  --color-success-soft: #e8f4ee;
+  --color-danger: #b02a2a;
+  --color-danger-soft: #fbecec;
+
+  /* ---------------------------------------------------------------------
+     COLOR — focus
+     Brighter than --color-accent so the ring stays legible on accent-filled
+     controls as well as on canvas (4.9:1 against canvas).
+     --------------------------------------------------------------------- */
+  --color-focus: #1a6fb5;
+
+  /* ---------------------------------------------------------------------
+     TYPEFACES
+     Manrope carries display/headline typography; Inter carries body and
+     interface text. Both are injected as variables by next/font in layout.
+     --------------------------------------------------------------------- */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: var(--font-manrope), var(--font-inter), ui-sans-serif,
+    system-ui, sans-serif;
+
+  /* ---------------------------------------------------------------------
+     TYPE SCALE
+     Every step is fluid between a 320px and a 1440px viewport, so type
+     adapts continuously instead of jumping at breakpoints. Sizes below
+     1440px are interpolated; above it they hold at the max.
+     --------------------------------------------------------------------- */
+
+  /* 40px -> 88px */
+  --text-display: clamp(2.5rem, 1.6429rem + 4.2857vw, 5.5rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.032em;
+  --text-display--font-weight: 700;
+
+  /* 32px -> 60px */
+  --text-h1: clamp(2rem, 1.5rem + 2.5vw, 3.75rem);
+  --text-h1--line-height: 1.06;
+  --text-h1--letter-spacing: -0.026em;
+  --text-h1--font-weight: 700;
+
+  /* 26px -> 44px */
+  --text-h2: clamp(1.625rem, 1.3036rem + 1.6071vw, 2.75rem);
+  --text-h2--line-height: 1.14;
+  --text-h2--letter-spacing: -0.021em;
+  --text-h2--font-weight: 700;
+
+  /* 21px -> 30px */
+  --text-h3: clamp(1.3125rem, 1.1518rem + 0.8036vw, 1.875rem);
+  --text-h3--line-height: 1.24;
+  --text-h3--letter-spacing: -0.015em;
+  --text-h3--font-weight: 600;
+
+  /* 18px -> 22px */
+  --text-h4: clamp(1.125rem, 1.0536rem + 0.3571vw, 1.375rem);
+  --text-h4--line-height: 1.34;
+  --text-h4--letter-spacing: -0.008em;
+  --text-h4--font-weight: 600;
+
+  /* 17px -> 20px */
+  --text-body-lg: clamp(1.0625rem, 1.0089rem + 0.2679vw, 1.25rem);
+  --text-body-lg--line-height: 1.6;
+  --text-body-lg--letter-spacing: -0.004em;
+  --text-body-lg--font-weight: 400;
+
+  /* 16px -> 17px */
+  --text-body: clamp(1rem, 0.9821rem + 0.0893vw, 1.0625rem);
+  --text-body--line-height: 1.65;
+  --text-body--letter-spacing: 0em;
+  --text-body--font-weight: 400;
+
+  /* 15px */
+  --text-body-sm: 0.9375rem;
+  --text-body-sm--line-height: 1.6;
+  --text-body-sm--letter-spacing: 0em;
+  --text-body-sm--font-weight: 400;
+
+  /* 15px — navigation and interface actions */
+  --text-nav: 0.9375rem;
+  --text-nav--line-height: 1.4;
+  --text-nav--letter-spacing: -0.004em;
+  --text-nav--font-weight: 500;
+
+  /* 13px — metadata, captions, credits */
+  --text-meta: 0.8125rem;
+  --text-meta--line-height: 1.45;
+  --text-meta--letter-spacing: 0.005em;
+  --text-meta--font-weight: 400;
+
+  /* 12px — eyebrow labels; always uppercase, tracked and semibold */
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.1em;
+  --text-label--font-weight: 600;
+
+  /* ---------------------------------------------------------------------
+     RADIUS
+     Restrained throughout. The largest step is reserved for big floating
+     surfaces; nothing here should read as a rounded consumer app.
+     --------------------------------------------------------------------- */
+  --radius-xs: 0.125rem; /* 2px  */
+  --radius-sm: 0.1875rem; /* 3px  */
+  --radius-md: 0.25rem; /* 4px  */
+  --radius-lg: 0.375rem; /* 6px  */
+  --radius-xl: 0.5rem; /* 8px  */
+  --radius-2xl: 0.75rem; /* 12px */
+  --radius-3xl: 1rem; /* 16px */
+
+  /* ---------------------------------------------------------------------
+     ELEVATION
+     Architectural, not glassmorphic: low-opacity navy shadows that suggest
+     a plane lifting off the canvas rather than a glow.
+     --------------------------------------------------------------------- */
+  --shadow-xs: 0 1px 2px rgb(14 28 47 / 0.04);
+  --shadow-sm: 0 1px 3px rgb(14 28 47 / 0.06), 0 1px 2px rgb(14 28 47 / 0.04);
+  --shadow-md: 0 4px 12px rgb(14 28 47 / 0.07), 0 1px 3px rgb(14 28 47 / 0.05);
+  --shadow-lg: 0 12px 32px rgb(14 28 47 / 0.1), 0 2px 8px rgb(14 28 47 / 0.05);
+  --shadow-xl: 0 24px 60px rgb(14 28 47 / 0.14), 0 4px 12px rgb(14 28 47 / 0.06);
+
+  /* ---------------------------------------------------------------------
+     EASING
+     Restrained curves only. No motion is implemented at this stage.
+     --------------------------------------------------------------------- */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  /* ---------------------------------------------------------------------
+     CONTENT WIDTHS
+     --------------------------------------------------------------------- */
+  --container-page: 82.5rem; /* 1320px — default page container       */
+  --container-wide: 96rem; /* 1536px — wide/near-bleed compositions */
+  --container-narrow: 60rem; /* 960px  — focused content areas        */
+  --container-measure: 44rem; /* 704px  — editorial reading measure    */
+
+  /* ---------------------------------------------------------------------
+     BREAKPOINTS
+     Tailwind's defaults (sm 640, md 768, lg 1024, xl 1280, 2xl 1536) cover
+     the required tablet and desktop widths. `xs` is added at 400px to
+     separate small phones (320/375/390) from large ones (414+).
+     --------------------------------------------------------------------- */
+  --breakpoint-xs: 25rem; /* 400px  */
+  --breakpoint-3xl: 120rem; /* 1920px */
+}
+
+/* ==========================================================================
+   LAYOUT & MOTION TOKENS
+   --------------------------------------------------------------------------
+   Plain custom properties rather than `@theme` entries: these are consumed
+   as values (padding, gap, transition timing) rather than as generators for
+   a family of utilities. Fluid values interpolate between 320px and 1440px.
+   ========================================================================== */
+
+:root {
+  /* Responsive horizontal page padding: 20px -> 48px */
+  --gutter: clamp(1.25rem, 0.75rem + 2.5vw, 3rem);
+
+  /* Height of the sticky site header. Consumed by the header itself, by the
+     mobile navigation panel (which anchors beneath it), and by the scroll
+     headroom in the base layer, so the three can never drift apart. */
+  --header-height: 4rem;
+
+  /* Section vertical rhythm */
+  --section-y-sm: clamp(2.5rem, 1.6429rem + 4.2857vw, 5.5rem); /*  40 ->  88 */
+  --section-y: clamp(4rem, 2.5714rem + 7.1429vw, 9rem); /*  64 -> 144 */
+  --section-y-lg: clamp(5rem, 3.2857rem + 8.5714vw, 11rem); /*  80 -> 176 */
+
+  /* Internal padding for cards and floating panels */
+  --pad-card-sm: clamp(1.25rem, 1.0714rem + 0.8929vw, 1.875rem);
+  --pad-card: clamp(1.5rem, 1.2143rem + 1.4286vw, 2.5rem);
+
+  /* Vertical gaps inside a text group (label -> heading -> copy -> action) */
+  --stack-xs: 0.5rem;
+  --stack-sm: 0.75rem;
+  --stack-md: 1.25rem;
+  --stack-lg: 2rem;
+  --stack-xl: clamp(2.5rem, 2.0714rem + 2.1429vw, 4rem);
+
+  /* Motion durations. No animation is built at this stage; these exist so
+     later stages share one vocabulary instead of inventing timings. */
+  --duration-instant: 100ms;
+  --duration-fast: 160ms;
+  --duration-base: 240ms;
+  --duration-slow: 400ms;
+  --duration-slower: 640ms;
+}
+
+/* The header gains height from `lg` upward, where the navigation sits inline
+   rather than behind the menu trigger. */
+@media (min-width: 64rem) {
+  :root {
+    --header-height: 5rem;
+  }
+}
+
+
+/* ==========================================================================
+   BASE LAYER
+   Global defaults only. Nothing here belongs to a specific page section.
+   ========================================================================== */
+
+@layer base {
+  /* Tailwind's preflight leaves border-color as currentColor; default it to
+     the token so a bare `border` renders the intended hairline. */
+  *,
+  ::after,
+  ::before {
+    border-color: var(--color-border);
+  }
+
+  html {
+    /* Light-only system: tells the UA to render form controls and
+       scrollbars for a light surface rather than inverting them. */
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    /* Headroom for the sticky header, plus a little breathing room. */
+    scroll-padding-block-start: calc(var(--header-height) + 2rem);
+    /* `clip` rather than `hidden`: prevents sideways overflow from
+       full-bleed compositions without creating a scroll container, which
+       would silently break `position: sticky` descendants. */
+    overflow-x: clip;
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.65;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Semantic headings inherit the display face and optical defaults; the
+     size itself stays with the type-scale utilities (text-h1 … text-h4) so
+     heading level and visual weight can be chosen independently. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  /* Preflight resets links to `color: inherit`. Keep that — most links in
+     this design live inside navigation and cards — but set the underline
+     treatment now so any link that opts into one is consistent. */
+  a {
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 1px;
+  }
+
+  /* Focus is styled, never removed. `:focus` is intentionally left alone so
+     the UA fallback survives if this rule ever fails to load. */
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-accent-soft);
+    color: var(--color-ink);
+  }
+
+  /* Media defaults beyond preflight: constrain replaced elements so a large
+     image can never widen the layout. */
+  img,
+  picture,
+  video,
+  canvas {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Long unbroken strings (URLs, part numbers) must not force a scrollbar
+     at 320px. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li,
+  dd,
+  dt {
+    overflow-wrap: break-word;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   Honoured globally from the outset so later stages inherit it by default.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   FOUNDATION UTILITIES
+   Layout helpers that carry the fluid tokens above into markup.
+   ========================================================================== */
+
+/* Responsive horizontal page padding. */
+@utility page-gutter {
+  padding-inline: var(--gutter);
+}
+
+/* Section vertical rhythm. */
+@utility section-y {
+  padding-block: var(--section-y);
+}
+
+@utility section-y-sm {
+  padding-block: var(--section-y-sm);
+}
+
+@utility section-y-lg {
+  padding-block: var(--section-y-lg);
+}
+
+/* Internal padding for cards and floating panels. */
+@utility pad-card {
+  padding: var(--pad-card);
+}
+
+@utility pad-card-sm {
+  padding: var(--pad-card-sm);
+}
+
+/* Lining figures of equal width — statistics and specification tables must
+   not shift horizontally as their digits change. */
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Hover/active transition for interactive elements.
+   Deliberately not Tailwind's `transition-colors`, whose property list
+   includes `outline-color` — that makes the focus ring fade in from
+   `currentColor` (white on an accent-filled button) instead of appearing
+   at once. A keyboard user must see the indicator immediately, so
+   `outline-color` is excluded here and the ring snaps in. */
+@utility transition-interactive {
+  transition-property: color, background-color, border-color,
+    text-decoration-color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+/* ==========================================================================   
+   STAGE 17 MOTION
+   --------------------------------------------------------------------------   
+   A small, CSS-only motion language for first-impression entrance, CTA
+   feedback, and image-card hover. All movement is transform/opacity based and
+   the reduced-motion branch restores content immediately.                   
+   ========================================================================== */
+@utility motion-button {
+  transition-property: color, background-color, border-color,
+    text-decoration-color, transform;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+@utility motion-arrow {
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+@utility motion-hero {
+  animation: flemdek-hero-enter var(--duration-slow) var(--ease-entrance) both;
+}
+@utility motion-hero-delay-1 {
+  animation-delay: var(--duration-instant);
+}
+@utility motion-hero-delay-2 {
+  animation-delay: calc(var(--duration-instant) + var(--duration-fast));
+}
+.motion-image-frame > img {
+  transition: transform var(--duration-slow) var(--ease-standard);
+}
+@keyframes flemdek-hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .motion-button:hover,
+  .motion-button:focus-visible {
+    transform: translateY(-1px);
+  }
+  .motion-button:active {
+    transform: translateY(0) scale(0.98);
+  }
+  .motion-button:hover .motion-arrow,
+  .motion-button:focus-visible .motion-arrow {
+    transform: translateX(2px);
+  }
+  .motion-image-frame:hover > img {
+    transform: scale(1.02);
+  }
+}
+@media (prefers-reduced-motion: reduce) {  .motion-reveal {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .motion-hero,
+  .motion-hero-delay-1,
+  .motion-hero-delay-2 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .motion-image-frame > img {
+    transform: none !important;
+  }
+}
