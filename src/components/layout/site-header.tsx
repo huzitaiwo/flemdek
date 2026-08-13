@@ -88,7 +88,8 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full",
+        "z-50 w-full",
+        open ? "fixed inset-x-0 top-0" : "sticky top-0",
         "bg-surface",
         // The border is always laid out, only its colour changes, so the
         // header never changes height and the page below never shifts.

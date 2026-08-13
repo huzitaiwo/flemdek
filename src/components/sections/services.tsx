@@ -129,7 +129,7 @@ export function Services() {
         }}
       />
 
-      <Container className="relative z-10"> motion-reveal
+      <Container className="relative z-10 motion-reveal">
         {/* Editorial header ---------------------------------------------
             The reference's two-column heading block: display type on the
             left, supporting copy and the quiet action on the right, baselines

@@ -161,7 +161,7 @@ export function Projects() {
         }}
       />
 
-      <Container className="relative z-10"> motion-reveal
+      <Container className="relative z-10 motion-reveal">
         {/* Editorial header ----------------------------------------------
             A third header shape, so three consecutive bands do not open the
             same way: Services splits 7/5 and carries its action in the header,

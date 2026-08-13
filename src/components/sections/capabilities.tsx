@@ -111,7 +111,7 @@ export function Capabilities() {
         }}
       />
 
-      <Container className="relative z-10"> motion-reveal
+      <Container className="relative z-10 motion-reveal">
         {/* Editorial header ---------------------------------------------
             A single measure-capped column rather than the overview's
             two-column header. The two bands are adjacent, and repeating that

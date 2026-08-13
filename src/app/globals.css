@@ -411,6 +411,12 @@
 @utility section-y-lg {
   padding-block: var(--section-y-lg);
 }
+@media (max-width: 47.999rem) {
+  .section-y-lg {
+    padding-block: var(--section-y);
+  }
+}
+
 
 /* Internal padding for cards and floating panels. */
 @utility pad-card {

@@ -118,7 +118,7 @@ export function About() {
         }}
       />
 
-      <Container className="relative z-10"> motion-reveal
+      <Container className="relative z-10 motion-reveal">
         {/* Masthead ------------------------------------------------------
             The heading stands alone above the rule, with no supporting column
             beside it: the bands above have used every other arrangement of a

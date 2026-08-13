@@ -82,7 +82,7 @@ export function Trust() {
         }}
       />
 
-      <Container className="relative z-10"> motion-reveal
+      <Container className="relative z-10 motion-reveal">
         <div className="grid items-center gap-[var(--stack-xl)] lg:grid-cols-2 lg:gap-16">
           {/* Image plane ------------------------------------------------
               The badge sits over the photograph at every width. The office

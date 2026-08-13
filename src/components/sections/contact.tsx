@@ -15,7 +15,7 @@ export function Contact() {
       spacing="lg"
       tone="sunken"
     >
-      <Container width="wide"> motion-reveal
+      <Container width="wide" className="motion-reveal">
         <div className="grid gap-[var(--stack-xl)] lg:grid-cols-[minmax(0,1.1fr)_minmax(22rem,0.9fr)] lg:items-end">
           <div className="max-w-[44rem]">
             <p className="text-label text-accent uppercase">Contact / enquiry</p>
